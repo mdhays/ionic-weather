@@ -22,3 +22,29 @@ angular.module('starter', ['ionic'])
     }
   });
 })
+
+.controller('weatherCtrl', function($http) {
+  var weather = this;
+  navigator.geolocation.getCurrentPosition(function(geopos) {
+
+    var lat = geopos.coords.latitude;
+    var lon = geopos.coords.longitude;
+    var apiKey = 'da186af328648fe7e2f94de9f6998569';
+    var url = '/api/forecast/' + apiKey + '/' + lat + ',' + lon;
+
+    $http.get(url).then(function(res) {
+      
+      weather.temp = res.data.currently.temperature + '°';
+      console.log(res);
+    })
+  });
+//   .config(function ($stateProvider, $urlRouteProvider) {
+//     $stateProvider.state('root', {
+//       url: '/',
+//       template: '<h1>hello world</h1>'
+//     });
+//   $urlRouteProvider.otherwise('/');
+  weather.temp = '--';
+  // Try to get an icon to pop up.
+  //Try doing it with css and use angular to set the class.
+});
