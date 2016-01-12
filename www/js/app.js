@@ -35,16 +35,17 @@ angular.module('starter', ['ionic'])
     $http.get(url).then(function(res) {
       
       weather.temp = res.data.currently.temperature + '°';
+
+
+
+      weather.condition = res.data.currently.summary;
       console.log(res);
     })
   });
-//   .config(function ($stateProvider, $urlRouteProvider) {
-//     $stateProvider.state('root', {
-//       url: '/',
-//       template: '<h1>hello world</h1>'
-//     });
-//   $urlRouteProvider.otherwise('/');
+
   weather.temp = '--';
+
+  weather.condition = '----';
   // Try to get an icon to pop up.
   //Try doing it with css and use angular to set the class.
 });
