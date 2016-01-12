@@ -24,6 +24,7 @@ angular.module('starter', ['ionic'])
 })
 
 .controller('weatherCtrl', function($http) {
+  // Assigning weather to this so that we can use it to reference the controller scope.
   var weather = this;
   navigator.geolocation.getCurrentPosition(function(geopos) {
 
@@ -34,17 +35,15 @@ angular.module('starter', ['ionic'])
 
     $http.get(url).then(function(res) {
       
+      // Gets the data from the data object.
       weather.temp = res.data.currently.temperature + '°';
-
-
-
       weather.condition = res.data.currently.summary;
       console.log(res);
     })
   });
 
+  //Returns the data from the data object.
   weather.temp = '--';
-
   weather.condition = '----';
   // Try to get an icon to pop up.
   //Try doing it with css and use angular to set the class.
