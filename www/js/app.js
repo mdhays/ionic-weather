@@ -31,20 +31,33 @@ angular.module('starter', ['ionic'])
     var lat = geopos.coords.latitude;
     var lon = geopos.coords.longitude;
     var apiKey = 'da4e9d8f6529de29';
-    var url = 'http://api.wunderground.com/api/da4e9d8f6529de29/conditions/q/' + lat + +',' + lon + '.json';
+    var url = 'http://api.wunderground.com/api/da4e9d8f6529de29/conditions/q/' + lat +',' + lon + '.json';
 
     var promise = $http.get(url).then(function(res) {
-      var data = res.data.current_observation;
+      // var data = res.data.current_observation;
       // Gets the data from the data object.
       // weather.temp = res.response.current_observation.temp_f + '°';
       // weather.condition = res.data.currently.summary;
       console.log(res);
+
+      weather.temp = res.data.current_observation.temp_f;
+
+      weather.location = res.data.current_observation.display_location.city;
+
+      weather.search = function() {
+        console.log("search");
+        $http.get(url + weather.searchQuery + '.json')
+        .then(parseWUData);
+        console.log(weather.searchQuery);
+      }
     })
   });
 
   //Returns the data from the data object.
-  weather.temp = '--';
+  weather.location = '--';
   weather.condition = '----';
+  weather.temp = '----'
+
   // Try to get an icon to pop up.
   //Try doing it with css and use angular to set the class.
 });

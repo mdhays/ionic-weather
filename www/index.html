@@ -23,23 +23,25 @@
   </head>
   <body ng-app="starter">
 
-    <ion-pane>
+    <ion-pane ng-controller="weatherCtrl as weather">
       <!-- <ion-header-bar class="bar-stable">
         <h1 class="title">Ionic Weather</h1>
       </ion-header-bar> -->
       <div class="bar bar-header item-input-inset">
         <label class="item-input-wrapper">
           <i class="icon ion-ios-search placeholder-icon"></i>
-          <input type="search" placeholder="Search">
+          <input type="search" placeholder="Search" ng.model="weather.searchQuery">
         </label>
-        <button class="button button-clear">
-        Cancel
+        <button class="button button-calm" ng-click="weather.searchQuery()">
+        Search
         </button>
       </div>
-      <ion-content ng-controller="weatherCtrl as weather"> 
+      <ion-content> 
         
-        <h1> {{weather.condition}}</h1>
-        <h1>{{weather.temp}}</h1>
+        <h1> {{weather.location}} </h1>
+        <h1> {{weather.condition}} </h1>
+        <h1> {{weather.temp}} </h1>
+
 
         <img src="http://lorempixel.com/400/200/nature"> 
       </ion-content>
