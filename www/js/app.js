@@ -23,7 +23,7 @@ angular.module('starter', ['ionic'])
   });
 })
 
-.controller('weatherCtrl', function($http) {
+.controller('weatherCtrl', function($http, $q) {
   // Assigning weather to this so that we can use it to reference the controller scope.
   var weather = this;
   navigator.geolocation.getCurrentPosition(function(geopos) {
@@ -31,13 +31,13 @@ angular.module('starter', ['ionic'])
     var lat = geopos.coords.latitude;
     var lon = geopos.coords.longitude;
     var apiKey = 'da4e9d8f6529de29';
-    var url = '/api/forecast/' + apiKey + '/' + lat + ',' + lon;
+    var url = 'http://api.wunderground.com/api/da4e9d8f6529de29/conditions/q/' + lat + +',' + lon + '.json';
 
     $http.get(url).then(function(res) {
       
       // Gets the data from the data object.
-      weather.temp = res.data.currently.temperature + '°';
-      weather.condition = res.data.currently.summary;
+      // weather.temp = res.response.current_observation.temp_f + '°';
+      // weather.condition = res.data.currently.summary;
       console.log(res);
     })
   });
@@ -50,6 +50,10 @@ angular.module('starter', ['ionic'])
 });
 
 
-// high/low 5 day forecast (on my own)
+// 1. Switch to Weather Underground
+// 2. Use geoip weather until we get coords
+// 3. high/low 5 day forecast (on my own)
+// 4. search box
+// 5. save searches
 
 
