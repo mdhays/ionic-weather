@@ -26,6 +26,23 @@ angular.module('starter', ['ionic'])
 .controller('weatherCtrl', function($http, $q) {
   // Assigning weather to this so that we can use it to reference the controller scope.
   var weather = this;
+
+  function parseWUData(res) {
+    //Returns the data from the data object.
+    weather.temp = res.data.current_observation.temp_f;
+
+    weather.location = res.data.current_observation.display_location.full;
+    console.log(weather.location);
+  }
+
+  function setLocalStorage(res) {
+    var history = JSON.parse(localStorage.getItem('searchHistory')) || {};
+    var cityName = res.data.current_observation.display_location.full;
+    var stationId = res.data.current_observation.station_id;
+    history[cityName] = stationId;
+    localStorage.setItem('searchHistory', JSON.stringify(history));
+  }
+
   navigator.geolocation.getCurrentPosition(function(geopos) {
 
     var lat = geopos.coords.latitude;
@@ -33,31 +50,30 @@ angular.module('starter', ['ionic'])
     var apiKey = 'da4e9d8f6529de29';
     var url = 'http://api.wunderground.com/api/da4e9d8f6529de29/conditions/q/' + lat +',' + lon + '.json';
 
-    var promise = $http.get(url).then(function(res) {
-      // var data = res.data.current_observation;
-      // Gets the data from the data object.
-      // weather.temp = res.response.current_observation.temp_f + '°';
-      // weather.condition = res.data.currently.summary;
-      console.log(res);
-
-      weather.temp = res.data.current_observation.temp_f;
-
-      weather.location = res.data.current_observation.display_location.full;
-      console.log(weather.location);
-
-      weather.search = function() {
-        console.log("search");
-        $http.get(url + weather.searchQuery + '.json')
-        .then(parseWUData);
-        console.log(weather.searchQuery);
-      }
+    $http.get(url).then(function(res) {
+      
+      console.log(res);      
+      parseWUData(res);
+      setLocalStorage(res);
     })
   });
 
-  //Returns the data from the data object.
-  weather.location = '--';
-  weather.condition = '----';
-  weather.temp = '----';
+
+    weather.search = function() {
+        console.log("search", weather.searchQuery);
+        $http.get('http://api.wunderground.com/api/da4e9d8f6529de29/conditions/q/' + weather.searchQuery + '.json')
+        .then(function(res) {
+          console.log(">>>>", res);
+          parseWUData(res);
+          setLocalStorage(res);
+          // localStorage.setItem('stuff', 'morestuff')
+          // console.log(res.data.current_observation.station_id); 
+          // console.log(weather.searchQuery);
+        });
+        
+      }
+
+  
 
   // Try to get an icon to pop up.
   //Try doing it with css and use angular to set the class.
@@ -69,5 +85,5 @@ angular.module('starter', ['ionic'])
 // 3. high/low 5 day forecast (on my own)
 // 4. search box
 // 5. save searches
-
-
+// 6. save search history
+// 7. only add unique values
