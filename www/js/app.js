@@ -42,7 +42,8 @@ angular.module('starter', ['ionic'])
 
       weather.temp = res.data.current_observation.temp_f;
 
-      weather.location = res.data.current_observation.display_location.city;
+      weather.location = res.data.current_observation.display_location.full;
+      console.log(weather.location);
 
       weather.search = function() {
         console.log("search");
@@ -56,7 +57,7 @@ angular.module('starter', ['ionic'])
   //Returns the data from the data object.
   weather.location = '--';
   weather.condition = '----';
-  weather.temp = '----'
+  weather.temp = '----';
 
   // Try to get an icon to pop up.
   //Try doing it with css and use angular to set the class.
