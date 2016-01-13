@@ -33,8 +33,8 @@ angular.module('starter', ['ionic'])
     var apiKey = 'da4e9d8f6529de29';
     var url = 'http://api.wunderground.com/api/da4e9d8f6529de29/conditions/q/' + lat + +',' + lon + '.json';
 
-    $http.get(url).then(function(res) {
-      
+    var promise = $http.get(url).then(function(res) {
+      var data = res.data.current_observation;
       // Gets the data from the data object.
       // weather.temp = res.response.current_observation.temp_f + '°';
       // weather.condition = res.data.currently.summary;

@@ -24,9 +24,18 @@
   <body ng-app="starter">
 
     <ion-pane>
-      <ion-header-bar class="bar-stable">
+      <!-- <ion-header-bar class="bar-stable">
         <h1 class="title">Ionic Weather</h1>
-      </ion-header-bar>
+      </ion-header-bar> -->
+      <div class="bar bar-header item-input-inset">
+        <label class="item-input-wrapper">
+          <i class="icon ion-ios-search placeholder-icon"></i>
+          <input type="search" placeholder="Search">
+        </label>
+        <button class="button button-clear">
+        Cancel
+        </button>
+      </div>
       <ion-content ng-controller="weatherCtrl as weather"> 
         
         <h1> {{weather.condition}}</h1>
