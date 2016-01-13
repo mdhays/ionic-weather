@@ -30,7 +30,7 @@ angular.module('starter', ['ionic'])
 
     var lat = geopos.coords.latitude;
     var lon = geopos.coords.longitude;
-    var apiKey = 'da186af328648fe7e2f94de9f6998569';
+    var apiKey = 'da4e9d8f6529de29';
     var url = '/api/forecast/' + apiKey + '/' + lat + ',' + lon;
 
     $http.get(url).then(function(res) {
@@ -48,3 +48,8 @@ angular.module('starter', ['ionic'])
   // Try to get an icon to pop up.
   //Try doing it with css and use angular to set the class.
 });
+
+
+// high/low 5 day forecast (on my own)
+
+
